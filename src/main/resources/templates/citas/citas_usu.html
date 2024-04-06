@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/>
+
+<head th:replace="~{Plantillas/usuario :: head}"></head>
+<style>
+    .titlecartaSel2 {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        color: #000000;
+    }
+</style>
+<body style="background-color: #F4F4F4;">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a class="logo d-flex align-items-center">
+                <img src="/assets/img/logo.svg" alt="" width="200px" heigth="300px">
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+                <a class="nav-link nav-icon" href="manual-de-usuario.pdf" download="manual-de-usuario.pdf" title="Manual de usuario">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="badge bg-primary badge-number"></span>
+                </a>
+                <a class="nav-link nav-icon" href="https://wa.me/573209603212" title="WhatsApp" target="_blank">
+                    <i class="bi bi-whatsapp"></i>   
+                    <span class="badge bg-primary badge-number"></span>
+                </a>
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img th:src="@{${'images/' + userdetail.imagen}}" th:alt="${userdetail.imagen}" class="rounded-circle"/>
+                        <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${userdetail.nombre}"></span>
+                    </a><!-- End Profile Iamge Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6 th:text="${userdetail.nombre}"></h6>
+                            <span>Usuario</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/perfil}">
+                                <i class="bi bi-person"></i>
+                                <span  >Mi perfil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/ayudausuario}">
+                                <i class="bi bi-question-circle"></i>
+                                <span>¿Nesecitas ayuda?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a  class="dropdown-item d-flex align-items-center " th:href="@{/logout}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span sec:authorize="isAuthenticated"> Cerrar sesión</span>
+                            </a>
+                        </li>
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+            </ul>
+        </nav><!-- End Icons Navigation -->
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/home}">
+                    <i class="bi bi-house"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/perfil}">
+                    <i class="bi bi-person"></i>
+                    <span >Mi perfil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/mascotasUsuarios}">
+                    <i class="bi bi-hearts"></i>
+                    <span>Mis mascotas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/citas}">
+                    <i class="bi bi-chat-quote"></i>
+                    <span>Citas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/verhome}">
+                    <i class="bi bi-bag-plus"></i>
+                    <span>Productos y servicios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/getCart}">
+                    <i class="bi bi-cart4"></i>
+                    <span>Carrito de compras</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/comprasUser}">
+                    <i class="bi bi-bag-check"></i>                            <span>Compras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/ayudausuario}">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Centro de ayuda</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+        </ul>
+    </aside>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Citas</h1>
+        </div><!-- End Page Title -->
+
+        <section class="section profile">
+            <div class="row">
+                <div class="col-xl-12">
+
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab" style=" font-family: 'Montserrat', Arial, sans-serif;
+                                            font-size: 16px;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            color: #000000;"
+                                            data-bs-target="#profile-edit">Solicitar cita</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" style=" font-family: 'Montserrat', Arial, sans-serif;
+                                            font-size: 16px;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            color: #000000;"
+                                            data-bs-target="#profile-overview">Consultar citas</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" style="font-family: 'Montserrat', Arial, sans-serif;
+                                            font-size: 16px;
+                                            font-weight: 600;
+                                            line-height: 20px;
+                                            color: #000000;"
+                                            data-bs-target="#historial">Historial citas</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2">
+                                <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+
+                                    <!--Solicitar cita-->
+                                    <form id="agendarForm" method="post" action="/agendar">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <!-- Columna del formulario -->
+                                                <div class="col-8">
+                                                    <div class="card-body"> 
+                                                        <h6>Horario de atención:
+                                                            Lunes a Sábado: 9:00 AM - 6:00 PM. Por favor, seleccione horarios en intervalos de 30 minutos.</h6>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <br>
+                                                                    <label for="mascota" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px; color: #000000;">Mascota:</label>
+                                                                    <select class="form-select" name="mascota" required>
+                                                                        <option value="">Selecciona una mascota...</option>
+                                                                        <option th:each="mascota : ${mascotas}" th:value="${mascota.id}" th:data-imagen="${mascota.imagen}" th:text="${mascota.nombre}" ></option>
+                                                                    </select>
+                                                            </div>
+                                                            <div class="col">
+                                                                <br>
+                                                                    <label for="servicio" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px; color: #000000;">Tipo cita:</label>
+                                                                    <select class="form-select" name="servicio" required>
+                                                                        <option value="">Selecciona un servicio...</option>
+                                                                        <option th:each="servicio : ${servicios}" th:value="${servicio.id}" th:data-precio="${servicio.precio}"
+                                                                                th:text="${servicio.nombre}" ></option>                                                                    </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <br>
+                                                                    <label for="usuario" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px; color: #000000;">Veterinario:</label>
+                                                                    <select class="form-select" name="usuario" required>
+                                                                        <option value="">Selecciona un veterinario...</option>
+                                                                        <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}">
+                                                                    </select>                                                                        </div>
+                                                            <div class="col">
+                                                                <br>
+                                                                    <label for="precio" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px; color: #000000;">Precio:</label>
+                                                                    <input type="text" name="precio" class="form-control custom-border custom-bg-fondo" required readonly>
+                                                                        <!-- El precio se autocompleta segun el servicio escogido -->
+                                                                        </div>
+                                                                        </div>
+                                                                        <div class="row mt-3">
+                                                                            <div class="col">
+                                                                                <label class="control-label" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px; color: #000000;">Fecha</label>
+                                                                                <input type="datetime-local" name="inicio" id="fechaInicio" step="1800" class="form-control" min="{{#temporal}}|format_date_time('yyyy-MM-ddTHH:mm'){{/temporal}}" required />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div th:if="${error != null}" class="alert alert-danger mt-3" role="alert">
+                                                                            <strong>Error:</strong> <span th:text="${error}"></span>
+                                                                        </div>
+
+                                                                        <div class="text-center mt-4">
+                                                                            <button id="agendarButton" type="submit" class="btn btn-success" style="background-color: #2FD6B4; color: #000000; border: 0;">Agendar</button>
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        <div class="col-4 calificar-container">
+                                                                            <img id="imagenMascota" src="./img/perrodefecto.jpg" alt="Imagen del Veterinario" style="             border-radius: 50%;
+                                                                                 max-width: 80%; /* Permitir que la imagen se expanda */
+                                                                                 object-fit: cover; /* Evitar que la imagen se distorsione */
+                                                                                 height: 200px">
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </form>
+                                                                        </div>
+
+
+
+                                                                        <div class="tab-pane fade  profile-overview" id="profile-overview">
+                                                                            <div class="row mt-3">
+                                                                                <div class="col-lg-6 col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <input type="text" name="palabra" placeholder="Buscar" id="palabra" autocomplete="off" oninput="consultarCita()">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="table-responsive mt-4">
+                                                                                <table class="table table-striped table-hover text-start" id="tablaConsultar">
+                                                                                    <thead>
+                                                                                        <tr class="table-secondary">
+                                                                                            <th scope="col">N°</th>
+                                                                                            <th scope="col">Mascota</th>
+                                                                                            <th scope="col">Fecha</th>                                                                             
+                                                                                            <th scope="col">Tipo de cita</th>
+                                                                                            <th scope="col">Veterinario</th>
+                                                                                            <th scope="col">Estado</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr th:each="cita, iterStat : ${citasPendientes}">
+                                                                                            <td th:text="${iterStat.index + 1}"></td>
+                                                                                            <td th:text="${cita.nombreMascota}"></td> <!-- Mostrar el nombre de la mascota -->
+                                                                                            <td th:text="${cita.formattedFecha}"></td>
+                                                                                            <td th:text="${cita.nombreCita}"></td> <!-- Mostrar el tipo de cita -->
+                                                                                            <td th:text="${cita.nombreVeterinario}"></td> <!-- Mostrar el nombre del veterinario -->
+                                                                                            <td style="color: red"  th:text="${cita.estado}"></td> <!-- Mostrar el estado de la cita -->
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <!--Fin consultar citas-->
+
+                                                                        <div class="tab-pane fade  historial" id="historial">
+                                                                            <div class="row mt-3">
+                                                                                <div class="col-lg-6 col-md-12">
+                                                                                    <div class="form-group">
+                                                                                        <input type="text" name="palabra" placeholder="Buscar" id="palabraHistorial" autocomplete="off" oninput="consultarHistorial()">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="table-responsive mt-4">
+                                                                                <table class="table table-striped table-hover text-start" id="tablaHistorial">
+                                                                                    <thead>
+                                                                                        <tr class="table-secondary">
+                                                                                            <th scope="col">N°</th>
+                                                                                            <th scope="col">Mascota</th>
+                                                                                            <th scope="col">Fecha</th>                                                                             
+                                                                                            <th scope="col">Tipo de cita</th>
+                                                                                            <th scope="col">Veterinario</th>
+                                                                                            <th scope="col">Estado</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr th:each="cita, iterStat : ${citasEstado}">
+                                                                                            <td th:text="${iterStat.index + 1}"></td>
+                                                                                            <td th:text="${cita.nombreMascota}"></td> <!-- Mostrar el nombre de la mascota -->
+                                                                                            <td th:text="${cita.formattedFechaFin}"></td>                                                                                            <td th:text="${cita.nombreCita}"></td> <!-- Mostrar el tipo de cita -->
+                                                                                            <td th:text="${cita.nombreVeterinario}"></td> <!-- Mostrar el nombre del veterinario -->
+                                                                                            <td style="color: green"  th:text="${cita.estado}"></td> <!-- Mostrar el estado de la cita -->
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+
+                                                                        </div>  <!-- End historial citas -->
+
+                                                                        </div><!-- End Bordered Tabs -->
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </section>
+                                                                        <div th:replace="~{Plantillas/usuario :: scripts}"></div>
+
+
+                                                                        </main><!-- End #main -->
+                                                                        <script th:if="${success}">
+                                                                            Swal.fire({
+                                                                                icon: 'success',
+                                                                                title: '¡Cita agendada!',
+                                                                                text: 'La cita se ha agendado correctamente.'
+                                                                            });
+                                                                        </script>
+                                                                        <script>
+                                                                            document.addEventListener('DOMContentLoaded', function () {
+                                                                                // Obtener el selector de servicios
+                                                                                var servicioSelect = document.querySelector('select[name="servicio"]');
+                                                                                // Obtener el campo de precio
+                                                                                var precioInput = document.querySelector('input[name="precio"]');
+
+                                                                                // Manejar el evento de cambio en el selector de servicios
+                                                                                servicioSelect.addEventListener('change', function () {
+                                                                                    // Obtener el precio del servicio seleccionado
+                                                                                    var precio = parseFloat(this.options[this.selectedIndex].getAttribute('data-precio'));
+                                                                                    // Comprobar si el precio es válido
+                                                                                    if (!isNaN(precio)) {
+                                                                                        // Autocompletar el campo de precio
+                                                                                        precioInput.value = precio;
+                                                                                    } else {
+                                                                                        // Limpiar el campo de precio si no se encuentra un precio válido
+                                                                                        precioInput.value = '';
+                                                                                    }
+                                                                                });
+                                                                            });
+                                                                        </script>
+
+
+                                                                        <script>
+                                                                            document.addEventListener('DOMContentLoaded', function () {
+                                                                                // Obtener el selector de mascotas
+                                                                                var mascotaSelect = document.querySelector('select[name="mascota"]');
+                                                                                // Obtener la imagen de la mascota
+                                                                                var imagenMascota = document.getElementById('imagenMascota');
+
+                                                                                // Función para mostrar la imagen de la mascota seleccionada o la imagen por defecto
+                                                                                function mostrarImagenMascota() {
+                                                                                    // Obtener la opción seleccionada
+                                                                                    var selectedOption = mascotaSelect.options[mascotaSelect.selectedIndex];
+                                                                                    // Obtener el nombre de la imagen de la mascota
+                                                                                    var imagenNombre = selectedOption.getAttribute('data-imagen');
+
+                                                                                    // Si hay un nombre de imagen, mostrar la imagen correspondiente
+                                                                                    if (imagenNombre) {
+                                                                                        // Construir la URL completa de la imagen
+                                                                                        var imagenUrl = '/images/' + imagenNombre;
+                                                                                        // Establecer la URL de la imagen en el elemento img
+                                                                                        imagenMascota.src = imagenUrl;
+                                                                                    } else {
+                                                                                        // Si no hay nombre de imagen (por ejemplo, opción vacía), mostrar la imagen por defecto
+                                                                                        imagenMascota.src = './img/perrodefecto.jpg';
+                                                                                    }
+                                                                                }
+
+                                                                                // Manejar el evento de cambio en el selector de mascotas
+                                                                                mascotaSelect.addEventListener('change', mostrarImagenMascota);
+
+                                                                                // Mostrar la imagen de la mascota al cargar la página
+                                                                                mostrarImagenMascota();
+                                                                            });
+                                                                        </script>
+                                                                        <script>
+                                                                            function consultarCita() {
+                                                                                // Obtén el valor del campo de búsqueda
+                                                                                var input = document.getElementById('palabra');
+                                                                                var filtro = input.value.toUpperCase();
+                                                                                // Obtén la tabla y las filas de la tabla
+                                                                                var tabla = document.getElementById('tablaConsultar');
+                                                                                var filas = tabla.getElementsByTagName('tr');
+                                                                                // Itera sobre las filas y muestra u oculta según la coincidencia con el filtro
+                                                                                for (var i = 0; i < filas.length; i++) {
+                                                                                    var celdas = filas[i].getElementsByTagName('td');
+                                                                                    var mostrarFila = false;
+                                                                                    // Si es la primera fila (encabezado), siempre mostrarla
+                                                                                    if (i === 0) {
+                                                                                        mostrarFila = true;
+                                                                                    } else {
+                                                                                        for (var j = 0; j < celdas.length; j++) {
+                                                                                            if (celdas[j]) {
+                                                                                                var textoCelda = celdas[j].textContent || celdas[j].innerText;
+                                                                                                if (textoCelda.toUpperCase().indexOf(filtro) > -1) {
+                                                                                                    mostrarFila = true;
+                                                                                                    break;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                    filas[i].style.display = mostrarFila ? '' : 'none';
+                                                                                }
+                                                                            }
+                                                                        </script>
+                                                                        <script>
+                                                                            function consultarHistorial() {
+                                                                                // Obtén el valor del campo de búsqueda
+                                                                                var input = document.getElementById('palabraHistorial');
+                                                                                var filtro = input.value.toUpperCase();
+                                                                                // Obtén la tabla y las filas de la tabla
+                                                                                var tabla = document.getElementById('tablaHistorial');
+                                                                                var filas = tabla.getElementsByTagName('tr');
+                                                                                // Itera sobre las filas y muestra u oculta según la coincidencia con el filtro
+                                                                                for (var i = 0; i < filas.length; i++) {
+                                                                                    var celdas = filas[i].getElementsByTagName('td');
+                                                                                    var mostrarFila = false;
+                                                                                    // Si es la primera fila (encabezado), siempre mostrarla
+                                                                                    if (i === 0) {
+                                                                                        mostrarFila = true;
+                                                                                    } else {
+                                                                                        for (var j = 0; j < celdas.length; j++) {
+                                                                                            if (celdas[j]) {
+                                                                                                var textoCelda = celdas[j].textContent || celdas[j].innerText;
+                                                                                                if (textoCelda.toUpperCase().indexOf(filtro) > -1) {
+                                                                                                    mostrarFila = true;
+                                                                                                    break;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                    filas[i].style.display = mostrarFila ? '' : 'none';
+                                                                                }
+                                                                            }
+                                                                        </script>
+
+
+                                                                        </body>
+
+                                                                        </html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"/>
+
+<head th:replace="Plantillas/administrador :: head">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Estilos letras-->
+    <style>
+        .card-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+        }
+        /*ESTILOS DE LETRAS*/
+        html {
+            scroll-behavior: smooth;
+            scroll-padding: 10rem;
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+        }
+
+        .card-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.8);
+            background-color: #A0A0A0; /* Cambia el color al pasar el mouse */
+        }
+        .inria-sans-light {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        .inria-sans-regular {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .inria-sans-bold {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            margin-right: 100px;
+            font-size: 30px;
+            line-height: 50px;
+        }
+        .inria-sans-bolds {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            margin-right: 100px;
+            font-size: 20px;
+            line-height: 50px;
+        }
+
+        .inria-sans-light-italic {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .inria-sans-regular-italic {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .inria-sans-bold-italic {
+            font-family: "Inria Sans", sans-serif;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .texto {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 20px;
+            margin: 0 0 20px;
+            padding: 0;
+
+
+        }
+        .texto2 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 15px;
+            margin: 0 0 20px;
+            padding: 0;
+
+
+        }
+
+        .titulo {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-right: 100px;
+            line-height: 50px;
+            color: #444444
+
+        }
+        .botones{
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 60px;
+            color: #FFFFFF;
+            background-color: #2FD6B5 !important;
+            border-radius: 8px;
+            margin-top: 10px;
+            width: 150px; /* Define el ancho deseado para el botón */
+        }
+        .subboton{
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-right: 60px;
+            color: white !important; /* Color del texto blanco */
+            background-color: #39DBC1;
+            border-radius: 8px;
+            margin-top: 10px;
+            width: 120px; /* Define el ancho deseado para el botón */
+        }
+        .nav-item:hover .nav-link {
+            color: #2FD6B5; /* Cambia el color del texto al pasar el mouse por encima */
+        }
+        .custom-btn {
+            color: white !important; /* Color del texto blanco */
+        }
+
+        .encabezados {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            margin-right: 10px;
+            line-height: 50px;
+            color: #FFFFFF;
+            text-align: center;
+
+
+        }
+        .titlecartas {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 50px;
+            color: #FFFFFF;
+
+        }
+        .titlecartass{
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+
+        }
+        .textcartas {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 19px;
+            font-weight: 300;
+            color: #000000;
+
+        }
+
+        .titleGesvet {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 50px;
+            color: #FFFFFF;
+
+
+        }
+        .titlecartasDos {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 50px;
+            color: #FFFFFF;
+
+        }
+        .titlecartaSel {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 50px;
+            color: #000000;
+
+        }
+        .titlecartaUna {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 50px;
+            color: #000000;
+
+        }
+        .titlecartaSel2 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 20px;
+            color: #000000;
+
+        }
+        .encabezadosCategoria {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 50px;
+            font-weight: 700;
+            margin-right: 10px;
+            line-height: 50px;
+            color: #FFFFFF;
+            text-align: center;
+
+            .titlecartaLetra{
+                font-family: 'Montserrat', Arial, sans-serif;
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 20px;
+                color: #000000;
+
+            }
+
+        </style>
+    </head>
+
+    <body style="background-color: #F4F4F4;">
+
+        <header id="header" class="header fixed-top d-flex align-items-center">
+
+            <div class="d-flex align-items-center justify-content-between">
+                <a th:href="@{/homes}" class="logo d-flex align-items-center">
+                    <img src="/assets/img/logo.svg" alt="Logo" width="200px" height="300px">
+                </a>
+                <i class="bi bi-list toggle-sidebar-btn"></i>
+            </div><!-- End Logo -->
+
+            <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center">
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link nav-icon search-bar-toggle" href="#">
+                            <i class="bi bi-search"></i>
+                        </a>
+                    </li><!-- End Search Icon-->
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon" href="manual-de-usuario.pdf" download="manual-de-usuario.pdf">
+                            <i class="bi bi-journal-bookmark-fill"></i>
+                            <span class="badge bg-primary badge-number"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon" href="https://wa.me/573209603212" title="WhatsApp" target="_blank">
+                            <i class="bi bi-whatsapp"></i>   
+                            <span class="badge bg-primary badge-number"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown pe-3">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                            <img th:src="${userDto.imagen}" th:alt="${userDto.imagen}" class="rounded-circle"/>
+                            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${userdetail.nombre}"></span>
+                        </a><!-- End Profile Image Icon -->
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                            <li class="dropdown-header">
+                                <h6 th:text="${userdetail.nombre}"></h6>
+                                <span>Administrador</span>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{/perfil_admin}">
+                                    <i class="bi bi-person"></i>
+                                    <span>Mi perfil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{/ayuda}">
+                                    <i class="bi bi-question-circle"></i>
+                                    <span>¿Necesitas ayuda?</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" th:href="@{/logout}">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Cerrar sesión</span>
+                                </a>
+                            </li>
+                        </ul><!-- End Profile Dropdown Items -->
+                    </li><!-- End Profile Nav -->
+                </ul>
+            </nav><!-- End Icons Navigation -->
+        </header><!-- End Header -->
+
+        <!-- ======= Sidebar ======= -->
+        <aside id="sidebar" class="sidebar">
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/homes}">
+                        <i class="bi bi-house"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/perfil_admin}">
+                        <i class="bi bi-person"></i>
+                        <span>Mi perfil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/cliente}">
+                        <i class="bi bi-people"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/razas}">
+                        <i class="bi bi-hearts"></i>
+                        <span>Gestión mascotas</span>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/citasRapidas}">
+                        <i class="bi bi-calendar-plus"></i>
+                        <span>Citas Rápidas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/listado}">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Gestión citas</span>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/productos}">
+                        <i class="bi bi-clipboard-plus"></i>
+                        <span>Gestión productos y servicios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/getCartadmin}">
+                        <i class="bi bi-cart4"></i>
+                        <span>Carrito</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/verhomeadmin}">
+                        <i class="bi bi-coin"></i>
+                        <span>Gestión ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" th:href="@{/ayuda}">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Ayuda y soporte</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <main id="main" class="main">
+            <section class="section profile">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <!-- Bordered Tabs -->
+                            <ul class="nav nav-tabs nav-tabs-bordered">
+                                <li class="nav-item">
+                                    <button class="nav-link active" data-bs-toggle="tab"
+                                            data-bs-target="#profile-overview">Registro</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2">
+                                <div class="container">
+                                    <form th:action="@{/razas/save}" method="post" th:object="${raza}" enctype="multipart/form-data">
+                                        <div class="card">
+
+                                            <div class="form-group" style=" font-family: 'Montserrat', Arial, sans-serif;
+                                                 font-size: 15px;
+                                                 font-weight: 500;
+                                                 line-height: 50px;
+                                                 color: #000000;">
+                                                <div class="row my-2">
+                                                    <div class="col-6">
+                                                        <label>Nombre:</label>
+                                                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                                                            <small id="nombreHel" class="form-text text-danger"
+                                                                   style="display:none;">Por favor, ingrese solo letras y entre 3 y 20 caracteres.</small>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <label>Descripción:</label>
+                                                        <input type="text" id="descripcion" name="descripcion" class="form-control"required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-footer">
+                                                <div class="row my-2">
+                                                    <div class="d-grid gap-2 col-6">
+                                                        <button class="btn" id="guardarBtn" style="background-color:#2FD6B4">Guardar</button>
+                                                        </div>
+                                                        <div class="d-grid gap-2 col-6">
+                                                            <a class="btn" style="background-color:#2FD6B4" href="/razas">Cancelar</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div th:replace="Plantillas/administrador :: scripts"></div>
+
+            </main><!-- End #main -->
+            <script th:if="${razaexiste != null}">
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ya existe una raza con el mismo nombre.'
+                });
+            </script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var descripcionInput = document.getElementById("descripcion");
+                    var nombreInput = document.getElementById("nombre");
+
+                    descripcionInput.addEventListener('input', function () {
+                        this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+                        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+                    });
+
+                    nombreInput.addEventListener('input', function () {
+                        this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+                        this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1);
+                    });
+
+                });
+            </script>
+
+        </body>
+    </html>

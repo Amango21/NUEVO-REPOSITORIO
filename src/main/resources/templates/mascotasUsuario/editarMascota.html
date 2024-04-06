@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"/>
+
+<head th:replace="~{Plantillas/usuario :: head}"></head>
+
+<body style="background-color: #F4F4F4">
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a class="logo d-flex align-items-center">
+                <img src="/assets/img/logo.svg" alt="" width="200px" heigth="300px">
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+                <a class="nav-link nav-icon" href="manual-de-usuario.pdf" download="manual-de-usuario.pdf" title="Manual de usuario">
+                    <i class="bi bi-journal-bookmark-fill"></i>
+                    <span class="badge bg-primary badge-number"></span>
+                </a>
+                <a class="nav-link nav-icon" href="https://wa.me/573209603212" title="WhatsApp" target="_blank">
+                    <i class="bi bi-whatsapp"></i>   
+                    <span class="badge bg-primary badge-number"></span>
+                </a>
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img th:src="${userDto.imagen}" th:alt="${userDto.imagen}" class="rounded-circle"/>
+                        <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${userdetail.nombre}"></span>
+                    </a><!-- End Profile Iamge Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6 th:text="${userdetail.nombre}"></h6>
+                            <span>Usuario</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/perfil}">
+                                <i class="bi bi-person"></i>
+                                <span  >Mi perfil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" th:href="@{/ayudausuario}">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Nesecitas ayuda?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a  class="dropdown-item d-flex align-items-center " th:href="@{/logout}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span sec:authorize="isAuthenticated"> Cerrar sesión</span>
+                            </a>
+                        </li>
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+            </ul>
+        </nav><!-- End Icons Navigation -->
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/home}">
+                    <i class="bi bi-house"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/perfil}">
+                    <i class="bi bi-person"></i>
+                    <span >Mi perfil</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/mascotasUsuarios}">
+                    <i class="bi bi-hearts"></i>
+                    <span>Mis mascotas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/citas}">
+                    <i class="bi bi-chat-quote"></i>
+                    <span>Citas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/verhome}">
+                    <i class="bi bi-bag-plus"></i>
+                    <span>Productos y servicios</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/getCart}">
+                    <i class="bi bi-cart4"></i>
+                    <span>Carrito de compras</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/comprasUser}">
+                    <i class="bi bi-bag-check"></i>                            <span>Compras</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" th:href="@{/ayudausuario}">
+                    <i class="bi bi-question-circle"></i>
+                    <span>Centro de ayuda</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+        </ul>
+    </aside>
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Editar Mascotas</h1>
+        </div><!-- End Page Title -->
+        <section class="section profile">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            <li class="nav-item">
+                                <button class="nav-link active" style="font-family: 'Montserrat', Arial, sans-serif;
+                            font-size: 16px;
+                            font-weight: 600;
+                            line-height: 20px;
+                            color: #000000;" data-bs-toggle="tab"
+                                        data-bs-target="#profile-overview">Editar</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-2">
+                            <div class="container">
+                                <form id="editarMascotaForm" method="post" th:action="@{/mascotasUsuarios/update}" enctype="multipart/form-data">
+                                    <input type="hidden" name="usuario.id" th:value="${usuarioMascota.id}"/>
+                                    <input type="hidden" name="id" th:value="${mascotasEditar.id}" />
+                                    <div class="card">
+                                        <div class="row mb-3">
+                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label" style="color: black; text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Imagen de
+                                                Mascota</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <img th:src="@{/images/{imageName}(imageName=${mascotasEditar.imagen})}" class="rounded-circle" alt="..." width="20%">
+                                                    <div class="pt-2">
+                                                        <input id="imagen" type="file" name="file" class="btn btn-sm" title="Upload new profile image" style="display: none;" onchange="mostrarVistaPrevia(this);">
+                                                            <input type="image" src="/img/image 90.png" alt="" style="width: 25px;" onclick="document.getElementById('imagen').click(); return false;">
+                                                                <!-- Agrega este elemento img para mostrar la vista previa -->
+                                                                <img id="vistaPrevia" src="#" alt="Vista Previa de la Imagen" style="display: none;
+                                                                     max-width: 50%;" />
+                                                                <!--     <a href="#" class="btn  btn-sm" title="Remove my profile image"><img class=""
+                                                                                                                                    src="./img/image 57.png" alt="" style="width: 15px ;"></a> -->
+                                                                </div>
+                                                                </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="row my-2">
+                                                                        <div class="col-6 ">
+                                                                            <label for="nombre" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Nombre:</label>
+                                                                            <input type="text" name="nombre" field="" th:value="${mascotasEditar.nombre}" class="form-control" required autocomplete="off">
+                                                                        </div>
+                                                                        <div class="col-6 ">
+                                                                            <label for="color" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Color:</label>
+                                                                            <input type="text" name="color" field="" th:value="${mascotasEditar.color}" class="form-control" required autocomplete="off">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row my-2">
+                                                                        <div class="col-6 ">
+                                                                            <label for="edad" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Edad:</label>
+                                                                            <input type="text" name="edad" field="" th:value="${mascotasEditar.edad}" class="form-control" required autocomplete="off">
+                                                                        </div>
+                                                                        <div class="col-6 ">
+                                                                            <label for="tiempo" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Tiempo:</label>
+                                                                            <select name="tiempo" class="form-select" th:value="${mascotasEditar.tiempo}" required>
+                                                                                <option value="Meses" th:selected="${mascotasEditar.tiempo == 'Meses'}">Meses</option>
+                                                                                <option value="Años" th:selected="${mascotasEditar.tiempo == 'Años'}">Años</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row my-2">
+                                                                        <div class="col-6 ">
+                                                                            <label for="genero" style="text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Género:</label>
+                                                                            <select name="genero" class="form-select" th:value="${mascotasEditar.genero}" >
+                                                                                <option value="Macho" th:selected="${mascotasEditar.genero == 'Macho'}">Macho</option>
+                                                                                <option value="Hembra" th:selected="${mascotasEditar.genero == 'Hembra'}">Hembra</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <label for="especie" style="color: black; text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Especies</label>
+                                                                            <select name="especie" class="form-select" th:value="${mascotasEditar.especie}"  required>
+                                                                                <option th:each="especie : ${especies}" th:value="${especie.id}" th:text="${especie.nombre}" th:selected="${especie.id == mascotasEditar.especie.id}"></option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row my-2">
+                                                                        <div class="col-6">
+                                                                            <label for="raza" style="color: black; text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Raza</label>
+                                                                            <select name="raza" class="form-select" th:value="${mascotasEditar.raza}"  required>
+                                                                                <option th:each="raza : ${razas}" th:value="${raza.id}" th:text="${raza.nombre}"></option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <label for="detalles" style="color: black; text-align: justify;font-family: 'Calibri Light', Arial, sans-serif;font-size: 16px;">Detalles</label>
+                                                                            <input type="text" name="detalles" field="" th:value="${mascotasEditar.detalles}" class="form-control" required autocomplete="off">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="box-footer">
+                                                                    <div class="row my-2">
+                                                                        <div class="d-grid gap-2 col-6">
+                                                                            <button type="submit" class="btn" style="background-color:#2FD6B4">Guardar</button>
+                                                                        </div>
+                                                                        <div class="d-grid gap-2 col-6">
+                                                                            <a class="btn" style="background-color:#2FD6B4" th:href="@{/mascotasUsuarios}">Cancelar</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                                </form>
+                                                                </div><!-- end container -->
+                                                                </div><!-- end tab-content -->
+                                                                </div><!-- card-body pt-3 -->
+                                                                </div><!-- end card -->
+                                                                </div><!--col-xl-12 -->
+                                                                </section><!-- end section -->
+                                                                <div th:replace="~{Plantillas/usuario :: scripts}"></div>
+
+                                                                </main>
+                                                                <!-- Agrega este script al formulario -->
+                                                                <script th:inline="javascript">
+                                                                    function mostrarVistaPrevia(input) {
+                                                                        var vistaPrevia = document.getElementById('vistaPrevia');
+                                                                        var file = input.files[0];
+                                                                        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Extensiones permitidas
+                                                                        var maxSize = 10 * 1024 * 1024; // Tamaño máximo (en bytes)
+
+                                                                        if (file) {
+                                                                            // Validar extensión
+                                                                            if (!allowedExtensions.exec(input.value)) {
+                                                                                Swal.fire({
+                                                                                    icon: 'error',
+                                                                                    title: 'Error',
+                                                                                    text: 'Por favor, seleccione un archivo con una extensión válida (.jpg, .jpeg, .png).'
+                                                                                });
+                                                                                input.value = '';
+                                                                                vistaPrevia.style.display = 'none';
+                                                                                return false;
+                                                                            }
+
+                                                                            // Validar tamaño
+                                                                            if (file.size > maxSize) {
+                                                                                Swal.fire({
+                                                                                    icon: 'error',
+                                                                                    title: 'Error',
+                                                                                    text: 'El tamaño del archivo excede el límite permitido de 10 MB.'
+                                                                                });
+                                                                                input.value = '';
+                                                                                vistaPrevia.style.display = 'none';
+                                                                                return false;
+                                                                            }
+
+                                                                            var reader = new FileReader();
+                                                                            reader.onload = function (e) {
+                                                                                vistaPrevia.src = e.target.result;
+                                                                                vistaPrevia.style.display = 'block';
+                                                                            };
+                                                                            reader.readAsDataURL(file);
+                                                                        }
+                                                                    }
+                                                                </script>
+
+                                                                </body>
+                                                                </html>
